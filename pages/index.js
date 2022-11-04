@@ -69,9 +69,7 @@ export default function Home({nextblog}) {
       </Head>
       <section className={utilStyles.headingMd}>
         <p>My name is Khem Raj Neupane</p>
-        <h1 className="title">
-          Read <Link href="/posts/first-post">My First Post New Page</Link>
-        </h1>
+
       </section>
       
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
