@@ -68,7 +68,7 @@ export default function Home({nextblog}) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>My name is Khem Raj Neupane</p>
+       
 
       </section>
       
