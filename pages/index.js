@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { MongoClient } from 'mongodb';
 import Image from 'next/image';
 import ItemDetails from '../components/item-details/item-details';
+import { useState } from 'react';
+import PostForm from '../components/post-form/post-form';
 //import Date from '../components/date';
 //import Date from '../components/date';
 
@@ -56,11 +58,9 @@ export async function getServerSideProps(context) {
 }
 */
 export default function Home({nextblog}) {
-  var today = new Date();
-  const utcDay = today.getUTCDate()        // 24
-  const utcMonth = today.getUTCMonth()     // 10 (UTC Month is also 0-based)
-  const utcYear = today.getUTCFullYear()
-  const myDate = `${utcMonth}-${utcDay}-${utcYear}`;
+  const[items, setItems]= useState([]);
+fetch('/api/add-new-post').then(data=>data.json()).then(items=>setItems(items.data)).catch(e=>console.log("error ", e))
+
 
   return (
     <Layout home>
@@ -68,17 +68,23 @@ export default function Home({nextblog}) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-       
-
+        <PostForm />
       </section>
       
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
+        
         <div className={utilStyles.list}>
+        <h2 className={utilStyles.headingLg}>Below from getStaticProps()</h2>
           {nextblog.map(items=>
           <div key = {items.id}>
             <ItemDetails blogItems={items} />
-            <ItemDetails blogItems={items} />
+          </div>
+           
+          )}
+          <h2 className={utilStyles.headingLg}>Below from next api routing</h2>
+          {items.map(item=>
+          <div key = {item.id}>
+            <ItemDetails blogItems={item} />
           </div>
            
           )}
